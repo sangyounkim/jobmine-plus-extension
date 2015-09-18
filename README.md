@@ -9,8 +9,10 @@ Runs Waterloo's JobMine but enhances the functionality and navigation.
 ## Installation Steps
 
 - [Chrome](https://github.com/matthewn4444/jobmine-plus-extension/wiki/Chrome)
+    - *NOTE:* If you're using Chrome on Windows, make sure to read the installation steps carefully, or you risk losing all extension configurations when you close your browser, i.e. the list of which jobs you've read/seen, etc. 
 - [Firefox](https://github.com/matthewn4444/jobmine-plus-extension/wiki/Firefox)
 
+ 
 ## Features
 
 - Better navigation than normal JobMine (and better user interface)
