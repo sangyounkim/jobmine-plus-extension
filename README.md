@@ -9,7 +9,7 @@ Runs Waterloo's JobMine but enhances the functionality and navigation.
 ## Installation Steps
 
 - [Chrome](https://github.com/matthewn4444/jobmine-plus-extension/wiki/Chrome)
-    - *NOTE:* If you're using Chrome on Windows, make sure to read the installation steps carefully, or you risk losing all extension configurations when you close your browser, i.e. the list of which jobs you've read/seen, etc. 
+    - *NOTE:* If you're using Chrome on Windows, make sure to install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) or you will risk *losing all JobMne plus stored data (i.e. preferences & read/seen job listings list) when you close your browser*
 - [Firefox](https://github.com/matthewn4444/jobmine-plus-extension/wiki/Firefox)
 
  
