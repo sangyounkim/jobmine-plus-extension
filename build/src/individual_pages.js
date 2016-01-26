@@ -889,6 +889,13 @@ switch (PAGEINFO.TYPE) {
                             if (reverseLookup.hasOwnProperty("Job ID")) {
                                 var id = rowData[reverseLookup["Job ID"]];
                                 if (cell == "Ranking Complete" && OBJECTS.STORAGE.getItem("INTERVIEWS_ID_" + id) != undefined) {
+                                    // Store the previous counts
+                                    var prevActive = OBJECTS.STORAGE.getItem('ACTIVE_APPS_COUNT');
+                                    var prevAll = OBJECTS.STORAGE.getItem('ALL_APPS_COUNT');
+
+                                    OBJECTS.STORAGE.setItem('PREV_ACTIVE_APPS_COUNT', prevActive);
+                                    OBJECTS.STORAGE.setItem('PREV_ALL_APPS_COUNT', prevAll);
+
                                     // Update the ranked jobs count
                                     var storeKey = 'ACTIVE_RANKING_COMPLETED_COUNT';
                                     var rankedCount = window.parseInt(OBJECTS.STORAGE.getItem(storeKey), 10);
@@ -926,6 +933,26 @@ switch (PAGEINFO.TYPE) {
                     OBJECTS.STORAGE.setItem('ACTIVE_APPS_COUNT', activeApp.rows);
                     OBJECTS.STORAGE.setItem('ALL_APPS_COUNT', allApp.rows);
                     changeStatusValues(activeApp.rows);
+
+                    // Determine offer or rank from glitch
+                    var prevActive = window.parseInt(OBJECTS.STORAGE.getItem('PREV_ACTIVE_APPS_COUNT'), 10);
+                    var prevAll = window.parseInt(OBJECTS.STORAGE.getItem('PREV_ALL_APPS_COUNT'), 10);
+                    var currActive = activeApp.rows;
+                    var currAll = allApp.rows;
+
+                    if (!prevActive || !prevAll) {
+                        break;
+                    }
+
+                    // Apps remaining
+                    var prevDiff = prevAll - prevActive;
+                    var currDiff = currAll - currActive;
+                    var numOffers = currDiff - prevDiff;
+
+                    var plural = numOffers > 1 ? 's' : '';
+                    if (numOffers > 0) {
+                        window.alert('Congrats! You potentially have ' + numOffers + ' offer' + plural + ' according to JobMine glitch.');
+                    }
                 }
                 break;
             case PAGES.PROFILE:
