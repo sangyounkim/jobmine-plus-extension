@@ -723,6 +723,51 @@ switch (PAGEINFO.TYPE) {
                     groupTable.applyFilter("Employer Name", TABLEFILTERS.googleSearch).applyFilter("Job ID", TABLEFILTERS.jobInterviews).appendTo(form);
                     socialTable.applyFilter("Employer Name", TABLEFILTERS.googleSearch).applyFilter("Job Identifier", TABLEFILTERS.jobInterviews).appendTo(form);
                     cancelTable.applyFilter("Employer", TABLEFILTERS.googleSearch).appendTo(form);
+
+                    // Store interviews count
+                    var key = 'INTERVIEWS_COUNT';
+
+                    // First time, initialize with the interview count
+                    if (OBJECTS.STORAGE.getItem(key) === null) {
+                        OBJECTS.STORAGE.setItem(key, interviewTable.data.length);
+                    }
+
+                    var prev = window.parseInt(OBJECTS.STORAGE.getItem(key), 10);
+                    var curr = interviewTable.data.length;
+                    var diff = curr - prev;
+
+                    if (diff <= 0) {
+                        console.log('No new interviews');
+                        break;
+                    }
+
+                    // Update the interview count
+                    OBJECTS.STORAGE.setItem(key, curr);
+
+                    // Interview Browser Notification
+                    if (!window.Notification) {
+                        console.log('Notifications API not supported on this browser.');
+                        break;
+                    }
+
+                    var plural = diff > 1 ? 's' : '';
+                    var msg = 'You have ' + diff  + ' new interview' + plural;
+                    var ACCESS_GRANTED = 'granted';
+                    var ACCESS_DENIED = 'denied';
+
+                    if (Notification.permission === ACCESS_GRANTED) {
+                        var notification = new Notification(msg);
+                        break;
+                    }
+
+                    if (Notification.permission !== ACCESS_DENIED) {
+                        Notification.requestPermission(function(permission) {
+                            // If the user accepts, let's create a notification
+                            if (permission === ACCESS_GRANTED) {
+                                var notification = new Notification(msg);
+                            }
+                        });
+                    }
                 }
                 break;
             case PAGES.RANKINGS:
