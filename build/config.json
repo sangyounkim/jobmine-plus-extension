@@ -3,7 +3,7 @@
         "version": "2.1.7",
         "debug": "false",
         "email": "<insert your developer's email here>",
-        "upload_link": "https://raw.githubusercontent.com/matthewn4444/jobmine-plus-extension/master/jobmine_plus.user.js",
+        "upload_link": "https://raw.githubusercontent.com/sangyounkim/jobmine-plus-extension/master/jobmine_plus.user.js",
         "update_css": "https://googledrive.com/host/0B8D5PyLxHOt8eG11VEpRcmJRVjg",
         "android_link": "https://play.google.com/store/apps/details?id=com.jobmineplus.mobile"
     },

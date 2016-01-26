@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           Jobmine Plus
-// @namespace      matthewng
+// @namespace      sangyounkim
 // @description    Makes jobmine even better and looks good too!
 // @include        https://jobmine.ccol.uwaterloo.ca/psp/SS*
 // @include        https://jobmine.ccol.uwaterloo.ca/psc/SS*

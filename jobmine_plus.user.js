@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           Jobmine Plus
-// @namespace      matthewng
+// @namespace      sangyounkim
 // @description    Makes jobmine even better and looks good too!
 // @include        https://jobmine.ccol.uwaterloo.ca/psp/SS*
 // @include        https://jobmine.ccol.uwaterloo.ca/psc/SS*
@@ -11,10 +11,11 @@
 // @exclude        *&jbmnpls=ignore
 // @exclude        *Page=UW_CO_CT_STU_APP*
 // @exclude        *UW_CO_EMPINFO_DTLS*
-// @updateURL      https://raw.githubusercontent.com/matthewn4444/jobmine-plus-extension/master/jobmine_plus.user.js
+// @updateURL      https://raw.githubusercontent.com/sangyounkim/jobmine-plus-extension/master/jobmine_plus.user.js
 // @grant          GM_getValue
 // @version        2.1.7
 // ==/UserScript==
+
 /*===============================*\
 |*        __CONSTANTS__          *|
 \*===============================*/
@@ -53,7 +54,7 @@ var LINKS = {
    BLANK       : "about:blank",
    EMPLYR_TOP  : "jobmine.ccol.uwaterloo.ca/psp/ES",
    EMPLYR_FRAME: "jobmine.ccol.uwaterloo.ca/psc/ES",
-   UPDATE_LINK : "https://raw.githubusercontent.com/matthewn4444/jobmine-plus-extension/master/jobmine_plus.user.js",
+   UPDATE_LINK : "https://raw.githubusercontent.com/sangyounkim/jobmine-plus-extension/master/jobmine_plus.user.js",
    UPDATE_CSS  : "https://googledrive.com/host/0B8D5PyLxHOt8eG11VEpRcmJRVjg",
    ANDROID_APP : "https://play.google.com/store/apps/details?id=com.jobmineplus.mobile",
    WORK_TERM   : null,     //Will set later
@@ -1182,7 +1183,7 @@ function addHeader() {
       }
    }
    BRIDGE.registerFunction("showAbout", function(){
-      showPopup(true, "<h1>Jobmine Plus Version "+CONSTANTS.VERSION+"</h1><br/>Hey there!<br/><br/>This is Matthew Ng the creator of Jobmine Plus. I am a System Designs Engineering Student at the University of Waterloo. I created this because Jobmine is not user friendly so this addon/extension should speed things up.<br/><br/>Feel free to email me if there are any problems, concerns or requests for future updates:<br/><a href='mailto:<insert your developer's email here>'><insert your developer's email here></a><br/><br/>Visit the extensions website for information and future updates:<br/><a href='https://raw.githubusercontent.com/matthewn4444/jobmine-plus-extension/master/jobmine_plus.user.js'>https://raw.githubusercontent.com/matthewn4444/jobmine-plus-extension/master/jobmine_plus.user.js</a><br/><br/>", "About Me", 400);
+      showPopup(true, "<h1>Jobmine Plus Version "+CONSTANTS.VERSION+"</h1><br/>Hey there!<br/><br/>This is Matthew Ng the creator of Jobmine Plus. I am a System Designs Engineering Student at the University of Waterloo. I created this because Jobmine is not user friendly so this addon/extension should speed things up.<br/><br/>Feel free to email me if there are any problems, concerns or requests for future updates:<br/><a href='mailto:<insert your developer's email here>'><insert your developer's email here></a><br/><br/>Visit the extensions website for information and future updates:<br/><a href='https://raw.githubusercontent.com/sangyounkim/jobmine-plus-extension/master/jobmine_plus.user.js'>https://raw.githubusercontent.com/sangyounkim/jobmine-plus-extension/master/jobmine_plus.user.js</a><br/><br/>", "About Me", 400);
    });
    header += '</ul></nav><div id="uwBanner" class="banner"></div><a href="' + LINKS.ANDROID_APP + '" target="_blank" class="google_play_button"></a></div><div id="jbmnplsBottomGroup"><div id="jbmnplsStatus"><ul></ul></div><div id="jbmplsControlPanel"><span class="fakeLink" onclick="showSettings();">Settings</span> | <span onclick="showAbout();" class="fakeLink">About</span> | <a href="'+LINKS.LOGOUT+'">Logout</a></div></div></header>';
    $("body").prepend(header);
