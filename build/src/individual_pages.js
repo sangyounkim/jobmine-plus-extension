@@ -844,6 +844,16 @@ switch (PAGEINFO.TYPE) {
                             if (reverseLookup.hasOwnProperty("Job ID")) {
                                 var id = rowData[reverseLookup["Job ID"]];
                                 if (cell == "Ranking Complete" && OBJECTS.STORAGE.getItem("INTERVIEWS_ID_" + id) != undefined) {
+                                    // Update the ranked jobs count
+                                    var storeKey = 'ACTIVE_RANKING_COMPLETED_COUNT';
+                                    var rankedCount = window.parseInt(OBJECTS.STORAGE.getItem(storeKey), 10);
+                                    // Store the ranked count for the first time
+                                    if (!rankedCount) {
+                                        OBJECTS.STORAGE.setItem(storeKey, 1);
+                                    } else if (rankedCount) {
+                                        // Increment the count
+                                        OBJECTS.STORAGE.setItem(storeKey, rankedCount++);
+                                    }
                                     return "<span title='According to the Jobmine glitch, if you have Ranking Complete in Active Applications, this means you have been ranked OR you have been offered this job.'>Ranked or Offered</span>";
                                 }
                             }
@@ -867,7 +877,9 @@ switch (PAGEINFO.TYPE) {
                     //Clean up all webpage :P
                     form.children("div:not('.jbmnplsTable')").css("display", "none");
 
-                    //Update the active applications count
+                    //Store and update the active applications count
+                    OBJECTS.STORAGE.setItem('ACTIVE_APPS_COUNT', activeApp.rows);
+                    OBJECTS.STORAGE.setItem('ALL_APPS_COUNT', allApp.rows);
                     changeStatusValues(activeApp.rows);
                 }
                 break;
