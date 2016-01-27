@@ -31,6 +31,14 @@ var CONSTANTS = {
    STATUS_UPDATE_TIME   : 10,  //10 mins
    RESUME_DELIMITOR1    : "{|||}",
    RESUME_DELIMITOR2    : "[|||]",
+   STORAGE: {
+      PREV_ACTIVE_APPS_COUNT: "PREV_ACTIVE_APPS_COUNT",
+      PREV_ALL_APPS_COUNT: "PREV_ALL_APPS_COUNT",
+      ACTIVE_APPS_COUNT: "ACTIVE_APPS_COUNT",
+      ALL_APPS_COUNT: "ALL_APPS_COUNT",
+      ACTIVE_RANKING_COMPLETED_COUNT: "ACTIVE_RANKING_COMPLETED_COUNT",
+      INTERVIEWS_COUNT: "INTERVIEWS_COUNT",
+   },
 };
 
 var DIMENSIONS = {
@@ -5939,15 +5947,12 @@ switch (PAGEINFO.TYPE) {
                     socialTable.applyFilter("Employer Name", TABLEFILTERS.googleSearch).applyFilter("Job Identifier", TABLEFILTERS.jobInterviews).appendTo(form);
                     cancelTable.applyFilter("Employer", TABLEFILTERS.googleSearch).appendTo(form);
 
-                    // Store interviews count
-                    var key = 'INTERVIEWS_COUNT';
-
                     // First time, initialize with the interview count
-                    if (OBJECTS.STORAGE.getItem(key) === null) {
-                        OBJECTS.STORAGE.setItem(key, interviewTable.data.length);
+                    if (OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.INTERVIEWS_COUNT) === null) {
+                        OBJECTS.STORAGE.setItem(CONSTANTS.STORAGE.INTERVIEWS_COUNT, interviewTable.data.length);
                     }
 
-                    var prev = window.parseInt(OBJECTS.STORAGE.getItem(key), 10);
+                    var prev = window.parseInt(OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.INTERVIEWS_COUNT), 10);
                     var curr = interviewTable.data.length;
                     var diff = curr - prev;
 
@@ -5957,7 +5962,7 @@ switch (PAGEINFO.TYPE) {
                     }
 
                     // Update the interview count
-                    OBJECTS.STORAGE.setItem(key, curr);
+                    OBJECTS.STORAGE.setItem(CONSTANTS.STORAGE.INTERVIEWS_COUNT, curr);
 
                     // Interview Browser Notification
                     if (!window.Notification) {
@@ -6105,15 +6110,14 @@ switch (PAGEINFO.TYPE) {
                                 var id = rowData[reverseLookup["Job ID"]];
                                 if (cell == "Ranking Complete" && OBJECTS.STORAGE.getItem("INTERVIEWS_ID_" + id) != undefined) {
                                     // Store the previous counts
-                                    var prevActive = OBJECTS.STORAGE.getItem('ACTIVE_APPS_COUNT');
-                                    var prevAll = OBJECTS.STORAGE.getItem('ALL_APPS_COUNT');
+                                    var prevActive = OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.ACTIVE_APPS_COUNT);
+                                    var prevAll = OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.ALL_APPS_COUNT);
 
-                                    OBJECTS.STORAGE.setItem('PREV_ACTIVE_APPS_COUNT', prevActive);
-                                    OBJECTS.STORAGE.setItem('PREV_ALL_APPS_COUNT', prevAll);
+                                    OBJECTS.STORAGE.setItem(CONSTANTS.STORAGE.PREV_ACTIVE_APPS_COUNT, prevActive);
+                                    OBJECTS.STORAGE.setItem(CONSTANTS.STORAGE.PREV_ALL_APPS_COUNT, prevAll);
 
                                     // Update the ranked jobs count
-                                    var storeKey = 'ACTIVE_RANKING_COMPLETED_COUNT';
-                                    var rankedCount = window.parseInt(OBJECTS.STORAGE.getItem(storeKey), 10);
+                                    var rankedCount = window.parseInt(OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.ACTIVE_RANKING_COMPLETED_COUNT), 10);
                                     // Store the ranked count for the first time
                                     if (!rankedCount) {
                                         OBJECTS.STORAGE.setItem(storeKey, 1);
@@ -6145,13 +6149,13 @@ switch (PAGEINFO.TYPE) {
                     form.children("div:not('.jbmnplsTable')").css("display", "none");
 
                     //Store and update the active applications count
-                    OBJECTS.STORAGE.setItem('ACTIVE_APPS_COUNT', activeApp.rows);
-                    OBJECTS.STORAGE.setItem('ALL_APPS_COUNT', allApp.rows);
+                    OBJECTS.STORAGE.setItem(CONSTANTS.STORAGE.ACTIVE_APPS_COUNT, activeApp.rows);
+                    OBJECTS.STORAGE.setItem(CONSTANTS.STORAGE.ALL_APPS_COUNT, allApp.rows);
                     changeStatusValues(activeApp.rows);
 
                     // Determine offer or rank from glitch
-                    var prevActive = window.parseInt(OBJECTS.STORAGE.getItem('PREV_ACTIVE_APPS_COUNT'), 10);
-                    var prevAll = window.parseInt(OBJECTS.STORAGE.getItem('PREV_ALL_APPS_COUNT'), 10);
+                    var prevActive = window.parseInt(OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.PREV_ACTIVE_APPS_COUNT), 10);
+                    var prevAll = window.parseInt(OBJECTS.STORAGE.getItem(CONSTANTS.STORAGE.PREV_ALL_APPS_COUNT), 10);
                     var currActive = activeApp.rows;
                     var currAll = allApp.rows;
 
